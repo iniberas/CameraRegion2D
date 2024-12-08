@@ -1,7 +1,7 @@
 # CameraRegion2D
 A simple [Godot](https://godotengine.org/) addon for managing `Camera2D` transitions and behaviors using defined regions. Easily add camera transitions, shake effects, and region-specific configurations to your game.
 
-[Demo](https://raw.githubusercontent.com/iniberas/CameraRegion2D/refs/heads/main/demo/demo.gif)
+![Demo](https://raw.githubusercontent.com/iniberas/CameraRegion2D/refs/heads/main/demo/demo.gif)
 
 ## Installation
 1. Download or clone this repository.
