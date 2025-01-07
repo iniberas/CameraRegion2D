@@ -6,7 +6,6 @@ extends Node2D
 ## The camera's position, zoom, or rotation are modified based on whether the [member CameraRegionController2D.target_node] is inside this region.
 class_name CameraRegion2D
 
-var _eds: EditorSelection
 var _selected: bool = false
 var _region: Rect2 = Rect2(0,0,-1,-1)
 
@@ -42,9 +41,8 @@ var _region: Rect2 = Rect2(0,0,-1,-1)
 
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
-		_eds = EditorInterface.get_selection()
-		if not _eds.is_connected("selection_changed", _on_selection_changed):
-			_eds.connect("selection_changed", _on_selection_changed)
+		if not Engine.get_singleton("EditorInterface").get_selection().is_connected("selection_changed", _on_selection_changed):
+			Engine.get_singleton("EditorInterface").get_selection().connect("selection_changed", _on_selection_changed)
 
 
 func _ready() -> void:
@@ -86,10 +84,11 @@ func _notification(what: int) -> void:
 
 
 func _on_selection_changed():
-	var selected_nodes = _eds.get_selected_nodes()
-	if selected_nodes:
-		_selected = (selected_nodes[0] == self)
-		queue_redraw()
+	if Engine.is_editor_hint():
+		var selected_nodes = Engine.get_singleton("EditorInterface").get_selection().get_selected_nodes()
+		if selected_nodes:
+			_selected = (selected_nodes[0] == self)
+			queue_redraw()
 
 
 ## Returns [code]true[/code] if the region contains the given point. By convention, points on the right and bottom edges are not included.
